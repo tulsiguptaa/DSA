@@ -1,0 +1,114 @@
+1. Utility Functions (Common STL Functions)
+
+swap(a, b)
+max(a, b)
+min(a, b)
+abs(x)
+sort(start, end)
+reverse(start, end)
+accumulate(start, end, initial_sum)
+find(start, end, value)
+count(start, end, value)
+binary_search(start, end, value)
+lower_bound(start, end, value)
+upper_bound(start, end, value)
+next_permutation(start, end)
+prev_permutation(start, end)
+
+2. vector
+
+push_back(value)
+pop_back()
+size()
+capacity()
+resize(n)
+empty()
+clear()
+at(index)
+front()
+back()
+insert(pos, value)
+erase(pos)
+begin(), end()
+rbegin(), rend()
+emplace_back(value)
+
+3. List
+
+push_back(value)
+push_front(value)
+pop_back()
+pop_front()
+insert(pos, value)
+erase(pos)
+remove(value)
+reverse()
+sort()
+
+4. Deque
+
+push_back(value)
+push_front(value)
+pop_back()
+pop_front()
+at(index)
+front()
+back()
+insert(pos, value)
+erase(pos)
+clear()
+
+5. Set
+
+insert(value)
+erase(value)
+find(value)
+count(value)
+lower_bound(value)
+upper_bound(value)
+size()
+empty()
+clear()
+
+6. Unordered Set
+
+insert(value)
+erase(value)
+find(value)
+count(value)
+
+7. Map
+
+insert({key, value})
+erase(key)
+find(key)
+count(key)
+size()
+empty()
+clear()
+
+8. Unordered Map
+
+insert({key, value})
+erase(key)
+find(key)
+count(key)
+
+9. Algorithm Functions
+
+sort(start, end)
+sort(start, end, comp)
+reverse(start, end)
+fill(start, end, value)
+copy(start, end, dest)
+replace(start, end, old, new)
+unique(start, end)
+rotate(start, mid, end)
+
+10. Priority queue
+
+push(value)
+pop()
+top()
+size()
+empty()

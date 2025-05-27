@@ -1,6 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
+
+void push(int arr[], int n, int k){
+    
+}
+
 int main() {
-    // hello  this is me 
+    
     return 0;
 }

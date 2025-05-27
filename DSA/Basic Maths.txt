@@ -1,0 +1,43 @@
+1. Extraction of digits
+
+n = 7789
+r = 7789 % 10 = 9
+7789/10 = 778
+r = 778 % 10 = 8
+778/10 = 77
+r = 77 % 10 = 7
+77/10 = 7
+r = 77 % 10 = 7
+7/10 = 0
+
+time complexity - O(log10(n))   //because the number of iteration depend on the number of time the number will be divided by 10
+
+2. How to count no. of digits
+// can also done by above
+
+int cnt = int(log10(n)+1);
+
+as log10(7789) = 3.--- + 1
+4.--- = 4
+
+3. Reverse a number
+
+4. Amrstrong number
+n = 371 = 3^3 + 7^3 + 1^3 = 371
+
+5. Factors
+
+6. Euclidean Algorithm
+gcd(a,b) = gcd(a-b,a)  where a>b
+
+gcd(20,15) = gcd(5,15)
+gcd(15,5) = gcd(10,5)
+gcd(10,5) = gcd(5,5)
+gcd(5,5) = gcd(0,5)
+
+gcd = 5
+
+
+
+
+
