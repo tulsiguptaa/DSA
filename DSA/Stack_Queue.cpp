@@ -751,7 +751,107 @@ int subarraySumMin_(int arr[], int n){
     return result ;
 }
 
+// ---------------sum of subarray ranges
+int subarrayRanges(int arr[], int n){
+    int ranges = 0;
+    for(int i=0;i<n;i++){
+        int mini = arr[i], maxi = arr[i];
+        for(int j=i;j<n;j++){
+            maxi = max(arr[j], maxi);
+            mini = min(arr[j], mini);
+            ranges += maxi - mini;
+        }
+    }
+    return ranges;
+}
 
+// ---------------sum of subarray ranges with optimisation
+int subarrayRanges_(int arr[], int n){
+    stack<int> st;
+    int sumMin = subarraySumMin_(arr,n);
+    int sumMax = 0;
+    // sum of minimums
+    for (int i = 0; i <= n; i++) {
+        while (!st.empty() && (i == n || arr[st.top()] < arr[i])) {
+            int idx = st.top(); st.pop();
+            int left = st.empty() ? -1 : st.top();
+            int right = i;
+            sumMax += (long long)(idx - left) * (right - idx) * arr[idx];
+        }
+        st.push(i);
+    }
+
+    while (!st.empty()) st.pop();
+    return sumMax - sumMin;
+}
+
+// ---------------asteroid collision
+vector<int> asteroid(int arr[], int n){
+    stack<int> st;
+       for (int i = 0; i < n; i++) {
+        int curr = arr[i];
+        bool destroyed = false;
+
+        while (!st.empty() && curr < 0 && st.top() > 0) {
+            if (st.top() < abs(curr)) {
+                st.pop();
+            } else if (st.top() == abs(curr)) {
+                st.pop();
+                destroyed = true;
+                break;
+            } else {
+                destroyed = true;
+                break;
+            }
+        }
+             if (!destroyed) {
+            st.push(curr);
+        }
+    }
+    vector<int> result(st.size());
+    for (int i = st.size() - 1; i >= 0; i--) {
+        result[i] = st.top();
+        st.pop();
+    }
+    return result;
+}
+
+// --------------largest rectangle in histogram
+int histogram(int arr[], int n){
+    int res = 0;
+    for(int i=0;i<n;i++){
+        total = arr[i] 
+        maxi = max(arr[i],maxi);
+    }
+}
+
+// -------------remove k digits from the string so that the remaining number is smallest
+int removeKdigits(string s, int k){
+    int n = s.length();
+    if(k>n) return -1;
+    for(int i=0;i<n;i++){
+        
+    }
+}
+
+int stock(int arr[], int n){
+    for(int i=0;i<n;i++){
+        for(int j=i;j<n;j++){
+            if(arr[i]<arr[j]){
+                maxi = max(maxi,arr[j]);
+            }
+        }
+    }
+}
+int stock(int arr[], int n){
+    stack<int> st;
+    for(int i=0;i<n;i++){
+        st.push(arr[i]);
+        while(st.top()>arr[i]){
+            st.pop();
+        }
+    }
+}
 int main() {
 
     // ----------------built in function-----------
@@ -946,9 +1046,28 @@ int main() {
 
 
     // --------------minimum of subarray sum with optimisation
-    int arr[] = {3, 1, 2, 4};
-    cout << "Sum of all minimums of subarrays = " << subarraySumMin_(arr,4);
+    // int arr[] = {3, 1, 2, 4};
+    // cout << "Sum of all minimums of subarrays = " << subarraySumMin_(arr,4);
 
+
+    // --------------sum of subarray ranges
+    // int arr[] = {2,1,8,4};
+    // cout<<"Sum of all the subarray ranges are: "<<subarrayRanges(arr,4);
+
+
+    // --------------sum of subarray ranges with optimisation
+    // int arr[] = {2,1,8,4};
+    // cout<<"Sum of all the subarray ranges are: "<<subarrayRanges_(arr,4);
+
+    
+    // -------------asteroid collision
+     int arr[] = {4, 7, 1, 1, 2, -3, -7, 17, 15, -18, -19};
+    vector<int> result = asteroid(arr, 11);
+
+    cout << "The collision result is: ";
+    for (int val : result) {
+        cout << val << " ";
+    }
 
 
 
