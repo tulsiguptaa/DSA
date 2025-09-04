@@ -1,11 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void push(int arr[], int n, int k){
-    
-}
+
 
 int main() {
-    
+    int x;
+    cin>>x;
+    cout<<x<<endl;
+    cout<<"hello";
+    if(x>12){
+        couot
+     }
     return 0;
 }

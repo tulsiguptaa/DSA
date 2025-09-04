@@ -1,215 +1,242 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
-// ---------creating node using struct 
-struct Node{
+// --------Binary tree implementation using struct
+struct node1{
     int data;
-    struct Node *left;
-    struct Node *right;
-    Node(int val){
-        data = val;
+    node1* left = nullptr;
+    node1* right = nullptr;
+};
+
+// --------Binary tree implementation using class
+class node{
+    public:
+    int data;
+    node* left;
+    node* right;
+    node(int d){
+        data = d;
         left = nullptr;
         right = nullptr;
     }
 };
+ 
+// -----------build tree using preorder sequence
+static int idx = -1;
+node* buildPreorder(vector<int> preorderArray){
+    idx ++;
+    if(preorderArray[idx] == -1) return nullptr; 
+    node* root = new node(preorderArray[idx]);
+    root->left = buildPreorder(preorderArray);
+    root->right = buildPreorder(preorderArray);
+    return root; 
+}
 
-// -----------creating node also using class
-class TreeNode {
-    public:
-        int data;      
-        TreeNode* left;  
-        TreeNode* right;   
-        TreeNode(int value) {
-            data = value;
-            left = nullptr;
-            right = nullptr;
-        }
-};
-
-// -----------DFS (Depth first search)-----------
-
-// -----------preorder traversal
-void preorder(Node* root){
-    if(root == nullptr){
-        return;
-    }
-    cout<<root->data<<" ";
+// --------------preorder traversal
+void preorder(node* root){
+    if(root == nullptr)return ;
+    cout<<root->data<<"->";
     preorder(root->left);
     preorder(root->right);
 }
 
-// ----------preorder traversal using iteration
-void preorder_(Node* root){
+// -------------inorder traversal
+void inorder(node* root){
+    if(root == nullptr)return;
+    inorder(root->left);
+    cout<<root->data<<"->";
+    inorder(root->right);
+}
+
+// -------------postorder traversal
+void postorder(node* root){
     if(root == nullptr) return;
-    stack<Node*> st;
+    postorder(root->left); 
+    postorder(root->right);
+    cout<<root->data<<"->"; 
+}
+
+// ----------level order traversal
+void levelorder(node* root){
+    queue<node*> st;
+    if(root == nullptr) return;
+    st.push(root); 
+    while(st.size()>0){
+        node* curr = st.front();
+        st.pop();
+        cout<<curr->data<<"->";
+        if(curr->left != nullptr){
+            st.push(curr->left);
+        }
+        if(curr->right != nullptr){
+            st.push(curr->right);
+        }
+    }
+    cout<<endl;
+}
+
+// ------------level order traversal with different levels in different lines
+void levelorder_(node* root){
+    if(root == nullptr) return;
+    queue<node*> st;
     st.push(root);
-    while(!st.empty()){
-        Node* current = st.top();
+    st.push(nullptr);
+    while(st.size()>0){
+        node* curr = st.front();
         st.pop();
-        cout<<current->data<<" ";
-        if(current->right){
-            st.push(current->right);
+        if(curr == nullptr){
+           if(!st.empty()){
+            cout<<endl;
+            st.push(nullptr);
+            continue;
+           }
+           else{
+            break;
+           }
         }
-        if(current->left){
-            st.push(current->left);
+        cout<<curr->data<<"->";
+        if(curr->left != nullptr){
+            st.push(curr->left);
+        }
+        if(curr->right != nullptr){
+            st.push(curr->right);
         }
     }
 }
 
-// ----------inorder traversal
-void inorder(Node* root){
+// -----------height of the tree
+void height(node* root){
     if(root == nullptr) return;
-    inorder(root->left);
-    cout<<root->data<<" ";
-    inorder(root->right);
-}
-
-// ----------inorder traversal using iteration
-void inorder_(Node* root){
-    if(root == nullptr) return;
-    stack<Node*> st;
-    Node* current = root;
-    while(!st.empty() || current != nullptr){
-        while(current!= nullptr){
-            st.push(current);
-            current = current->left;
-        }
-        current = st.top();
+    queue<node*> st;
+    st.push(root);
+    int ht = 1;  
+    st.push(nullptr);
+    while(st.size()>0){
+        node* curr = st.front();
         st.pop();
-        cout<<current->data<<" ";
-        current = current->right;
-    }
-}
-
-// ----------postorder traversal
-void postorder(Node* root){
-    if(root == nullptr) return;
-    inorder(root->left);
-    inorder(root->right);
-    cout<<root->data<<" ";
-}
-
-// -----------postorder yraversal using iteration using 2 stack
-void postorder_(Node* root){
-    if(root == nullptr) return;
-    stack<Node*> st1,st2;
-    st1.push(root);
-    while(!st1.empty()){
-        Node* current = st1.top();
-        st1.pop();
-        st2.push(current);
-        if(current->left){
-            st1.push(current->left);
-        }
-        if(current->right){
-            st1.push(current->right);
-        }
-    }
-    while(!st2.empty()){
-        cout<<st2.top()->data<<" ";
-        st2.pop();
-    }
-}
-
-// --------------post order traversal using one stack iteration
-void postorder__(Node* root){
-    if(root == nullptr) return;
-    stack<Node*> st;
-    Node* current = root;
-    Node* lastVisitedNode = nullptr;
-    while(current!=nullptr || !st.empty()){
-        if (current != nullptr) {
-            st.push(current);
-            current = current->left;
-        } else {
-            Node* peekNode = st.top();
-
-            // If right child exists and traversing node from left child, then move right
-            if (peekNode->right != nullptr && lastVisitedNode != peekNode->right) {
-                current = peekNode->right;
-            } else {
-                cout << peekNode->data << " ";
-                lastVisitedNode = peekNode;
-                st.pop();
+        if(curr == nullptr){
+            if(!st.empty()){
+                ht++;
+                st.push(nullptr);
+                continue;
+            }
+            else{
+                break;
             }
         }
-    }
-}
-
-// -----------BFS(Breadth first search)-------------
-// ---------level order traversal
-void levelorder(Node* root){
-    if(root == nullptr) return;
-    queue<Node*> q;
-    q.push(root);
-    while(!q.empty()){
-        Node* current = q.front();
-        q.pop();
-        cout<<current->data<<" ";
-        if(current->left){
-            q.push(current->left);
+        if(curr->left != nullptr){
+            st.push(curr->left);
         }
-        if(current->right){
-            q.push(current->right);
+        if(curr->right != nullptr){
+            st.push(curr->right);
         }
     }
+    cout<<ht;
 }
 
+// ------------height of the tree using recursion
+int height_(node* root){
+    if(root == nullptr) return 0;
+    int leftht = height_(root->left);
+    int rightht = height_(root->right);
+    return max(leftht, rightht) + 1;
+}
 
+// ----------count the total nodes
+int totalNodes(node* root){
+    if(root == nullptr) return 0;
+    int leftNodes = totalNodes(root->left);
+    int rightNodes = totalNodes(root->right);
+    return (leftNodes + rightNodes) + 1;
+}
 
+// -----------sum of all the nodes
+int sumNodes(node* root){
+    if(root == nullptr) return 0;
+    int leftNodes = sumNodes(root->left);
+    int rightNodes = sumNodes(root->right);
+    return leftNodes + rightNodes + root->data;
+}
+
+// ------------check two tree are identical or not
+bool identical(node* root1, node* root2){
+    if(root1 == nullptr || root2 == nullptr) return root1 == root2;
+    bool leftSubtree = identical(root1->left, root2->left);
+    bool rightSubtree = identical(root1->right,  root2->right);
+    return leftSubtree && rightSubtree && root1->data == root2->data;   
+}
+
+// --------------check subtree of another tree
+bool checkSubtree(node* root, node* subroot){
+    if(root == nullptr || subroot == nullptr){
+        return root == subroot;
+    }
+    if(root->data == subroot->data && identical(root,subroot)){
+        return true;
+    }   
+    return checkSubtree(root->left, subroot) || checkSubtree(root->right, subroot);
+}
+
+// ---------------diameter of a tree
+int diameter(node* root){
+    if(root == nullptr) return 0;
+    int leftleaf = diameter(root->left);
+    int rightleaf = diameter(root->right);
+    int curr = height_(root->left) + height_(root->right);
+    return max(curr, max(leftleaf, rightleaf));
+}
+
+// --------------diameter of the tree using optimisation
+int ans = 0;
+int height__(node* root){
+    if(root == nullptr) return 0;
+    int leftht = height__(root->left);
+    int rightht = height__(root->right);
+    ans = max(ans, leftht + rightht) + 1;
+    return max(leftht, rightht) + 1;
+}
+int diameter_(node* root) {
+    height__(root);
+    return ans;
+}
 
 
 int main() {
-    // ------------struct
-    Node* root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
+    vector<int> preorderArray = {1,2,-1,-1,3,4,-1,-1,5,-1,-1};
 
-    // ----------class
-    TreeNode* root1 = new TreeNode(10);
-    root1->left = new TreeNode(5);
-    root1->right = new TreeNode(15);
+    node* root = buildPreorder(preorderArray); 
 
-    // ---------preorder traversal
-    // cout<<"Preorder Traversal: ";
+    node* root1 = new node(3);
+    root1->left = new node(4);
+    root1->right = new node(5);
+ 
     // preorder(root);
 
-
-    // ---------preorder traversal using iteration
-    // cout<<"Iterative Preorder Traversal: ";
-    // preorder_(root);
-
-
-    // -----------inorder traversal
-    // cout<<"Inorder Traversal: ";
     // inorder(root);
 
-
-    // -----------inorder traversal using iteration
-    // cout<<"Iterative Inorder Traversal: ";
-    // inorder_(root);
-
-
-    // -----------postorder traversal
-    // cout<<"Postorder Traversal: ";
     // postorder(root);
 
-
-    // -----------postorder traversal using 2 stack iteration
-    // cout<<"Iterative Postorder Traversal: ";
-    // postorder_(root);
-
-
-    // -----------postorder traversal using 1 stack iteration
-    cout<<"Iterative Postorder Traversal: ";
-    postorder__(root);
-
-
-    // -----------level order traversal
-    // cout << "Level Order Traversal: ";
     // levelorder(root);
+
+    // levelorder_(root);
+
+    // height(root);
+
+    // cout<<"The height of the tree is: "<<height_(root);
+
+    // cout<<"The total nodes in a trees is: "<<totalNodes(root);
+
+    // cout<<"The sum of all the nodes are: "<<sumNodes(root);
+
+    // cout<<"Both are: "<<identical(root, root);
+
+    // cout<<"The main tree have a subtree: "<<checkSubtree(root,root1);
+
+    // cout<<"The diameter of the tree is: "<<diameter(root);
+
+    cout<<"The diameter of the tree is: "<<diameter_(root);
+
+
+    
     return 0;
 }
