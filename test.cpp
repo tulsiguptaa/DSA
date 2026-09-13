@@ -2,22 +2,38 @@
 using namespace std;
 
 
-int search(int arr[], int n, int target){
+bool search(int arr[], int n, int target){
     int low = 0;
     int high = n-1;
-    while(low<=high){
+    while(low <= high){
         int mid = low + (high - low)/2;
-        if(arr[mid] = target){
-           return arr[mid];
-        }
-        else if(arr[mid] > target){
-            high = low - 1;
-        }
-        else{
+        if(arr[mid] > arr[low] ){
+            ans = 
             low = mid + 1;
         }
+        else{
+
+        }
     }
-    return -1;
+}
+
+
+class LRU{
+    int capacity;
+    Node* next; Node* prev;
+    Node* head; Node* tail; map<int, Node*> mpp;
+    LRU(int cap){
+        capacity = cap;
+        head->next = tail;
+        tail->prev = head;
+        head->prev = nullptr;
+        tail->next = nullptr;
+    }
+    int get(key){
+        Node* temp = mpp.second;
+
+        return temp->val;
+    }
 }
 int main() {
     int n;
