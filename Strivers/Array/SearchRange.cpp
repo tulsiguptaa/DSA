@@ -26,9 +26,7 @@ int main() {
         cin >> nums[i];
     }
 
-    // Brtue
     vector<int> ans = searchRange(nums, 8);
-    // cout<<ans.first<<" "<<ans.second;
     cout<<ans[0]<<" "<<ans[1];
     
 
