@@ -20,5 +20,7 @@ int main() {
     for(int i = 0; i < n; i++) {
         cin >> nums[i];
     }
+
+    cout<<search(nums, 5);
     return 0;
 }
