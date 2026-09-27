@@ -14,6 +14,28 @@ int subarraySum(vector<int>& nums, int k) {
     return cnt;
 }
 
+// optimal
+int subarraySum_(vector<int>& nums, int k) {
+  unordered_map<int, int> mp;
+
+    mp[0] = 1;
+
+    int sum = 0;
+    int cnt = 0;
+
+    for (int num : nums) {
+        sum += num;
+
+        if (mp.find(sum - k) != mp.end()) {
+            cnt += mp[sum - k];
+        }
+
+        mp[sum]++;
+    }
+
+    return cnt;
+}
+
 
 int main() {
     int n;
@@ -24,7 +46,8 @@ int main() {
         cin >> nums[i];
     }
 
-    cout<<subarraySum(nums, 3);
+    cout<<subarraySum(nums, 3)<<"\n";
+    cout<<subarraySum_(nums, 3);
 
     return 0;
 }
