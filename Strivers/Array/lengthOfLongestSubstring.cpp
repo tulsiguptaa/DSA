@@ -24,7 +24,23 @@ int lengthOfLongestSubstring(string s) {
 }
 
 // Optimal
+int lengthOfLongestSubstring_(string s) {
+        map<char, int> mpp;
+        int left = 0;
+        int maxi = 0;
 
+        for (int right = 0; right < s.size(); right++) {
+
+            if (mpp.find(s[right]) != mpp.end()) {
+                left = max(left, mpp[s[right]] + 1);
+            }
+
+            mpp[s[right]] = right;
+
+            maxi = max(maxi, right - left + 1);
+        }
+        return maxi;
+}
 
 int main() {
      string s;
