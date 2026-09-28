@@ -30,9 +30,9 @@ void sortColors__(vector<int>& nums) {
         if(nums[mid] == 0) {
             swap(nums[mid], nums[low]);
             low++;
-            mid++:
+            mid++;
         }
-        if(nums[mid] == 2) {
+        else if(nums[mid] == 2) {
             swap(nums[mid], nums[high]);
             high --;
         }

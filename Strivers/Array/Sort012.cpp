@@ -31,9 +31,9 @@ void Sort012__(vector<int>& arr, int n){
         if(arr[mid] == 0) {
             swap(arr[mid], arr[low]);
             low++;
-            mid++:
+            mid++;
         }
-        if(arr[mid] == 2) {
+        else if(arr[mid] == 2) {
             swap(arr[mid], arr[high]);
             high --;
         }
