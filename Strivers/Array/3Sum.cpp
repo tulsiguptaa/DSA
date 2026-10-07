@@ -17,6 +17,27 @@ vector<vector<int>> threeSum(vector<int>& nums) {
 
 // Optimal
 
+vector<vector<int>> threeSum(vector<int>& nums) {
+        int n = nums.size();
+        if(n<3) return {};
+        sort(nums.begin(), nums.end());
+        int i = 0;
+        int j = 1;
+        int k = n-1;
+        while(j<k){
+            if(nums[i] + nums[j] + nums[k] == 0) {
+                return {i, j, k};
+            }
+            else if(nums[i] + nums[j] + nums[k] > 0){
+                k--;
+            }
+            else {
+                i++;
+                j++;
+            }
+        }
+        return  {};
+}
 
 int main() {
     int n;

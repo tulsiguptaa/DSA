@@ -1,49 +1,53 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
-bool search(int arr[], int n, int target){
-    int low = 0;
-    int high = n-1;
-    while(low <= high){
-        int mid = low + (high - low)/2;
-        if(arr[mid] > arr[low] ){
-            ans = 
-            low = mid + 1;
-        }
-        else{
-
-        }
-    }
+void dfs(int i, int j, vector<vector<int>>& grid, vector<vector<int>>& vis){
+    int n = grid.size();
+    int m = grid[0].size();
+    if(i<0 || i>n-1 || j<0 || j>m-1) return ;
+    dfs(i+1, j, grid, vis);
+    dfs(i-1, j, grid, vis);
+    dfs(i, j+1, grid, vis);
+    dfs(i, j-1, grid, vis);
 }
 
-
-class LRU{
-    int capacity;
-    Node* next; Node* prev;
-    Node* head; Node* tail; map<int, Node*> mpp;
-    LRU(int cap){
-        capacity = cap;
-        head->next = tail;
-        tail->prev = head;
-        head->prev = nullptr;
-        tail->next = nullptr;
+int numEnclaves(vector<vector<int>>& grid) {
+    int n = grid.size();
+    int m = grid[0].size();
+    vector<vector<int>> vis(n, vector<int>(m,0));
+    for(int i = 0; i<n;i++){
+        if(grid[i][0] == 1){
+            dfs(i,0,grid);
+            vis[i][0] = 1;
+        }
+        if(grid[i][m-1] == 1){
+            dfs(i,0,grid);
+            vis[i][0] = 1;
+        }
     }
-    int get(key){
-        Node* temp = mpp.second;
-
-        return temp->val;
+    for(int i = 0; i<m;i++){
+        if(grid[0][i] == 1){
+            dfs(i,0,grid);
+            vis[0][i] = 1;
+        }
+        if(grid[n-1][i] == 1){
+            dfs(i,0,grid);
+            vis[n-1][i] = 1;
+        }
     }
+    int cnt = 0;
+
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(!vis[i][j] && grid[i][j] == 1){
+                cnt++; 
+            }
+        }
+    }
+    return cnt;
 }
+
 int main() {
-    int n;
-    cout<<"Enter the val of n: ";
-    cin>>n;
-    int arr[n];
-    cout<<"Enter the ele of array: ";
-    for(int i =0;i<n;i++){
-        cin>>arr[i];
-    }
-    cout<<search(arr,n,5);
+    
     return 0;
 }
