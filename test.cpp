@@ -1,16 +1,25 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void dfs(int i, int j, vector<vector<int>>& grid, vector<vector<int>>& vis){
-    vis[i] = 0;
-    dfs()
+bool dfs(vector<int> vis[], vector<int> path[], vector<int> adj[]){
+    for(auto it: adj){
+        if(vis[it] == 0){
+            dfs(vis, path, adj);
+            path[it] = 1;
+            vis[it] = 1;
+        }
+    }
 }
 
-int numEnclaves(vector<vector<int>>& grid) {
-    vector<int> color;
-    for(int i=0;i<V;i++) color[i] = -1;
-    dfs()
-
+bool isCyclic(int V, vector<int> adj[]){
+    vector<int> vis(V, 0);
+    vector<int> path(V, 0);
+    for(int i=1;i<=V;i++){
+        if(vis[i] == 0){
+            if(dfs(vis, path, adj) == true) return true;
+        }
+    }
+    return false;
 }
 
 int main() {
