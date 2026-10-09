@@ -25,7 +25,7 @@ int longestOnes(vector<int>& nums, int k) {
     return maxi;
 }
 
-int longestOnes(vector<int>& nums, int k) {
+int longestOnes_(vector<int>& nums, int k) {
    int maxi = 0;
     int n = nums.size();
     int i = 0, j = 0;
@@ -68,5 +68,6 @@ int main() {
     }
 
     cout<<longestOnes(nums, 3);
+    cout<<longestOnes_(nums, 3);
     return 0;
 }
